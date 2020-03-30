@@ -1,4 +1,7 @@
 {
     "private": true,
-    "workspaces": ["app", "smart-contracts"]
-  }
+    "workspaces": [
+        "app",
+        "smart-contracts"
+    ]
+}
