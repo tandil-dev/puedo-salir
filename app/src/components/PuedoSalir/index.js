@@ -8,7 +8,7 @@ import { Grid } from '@material-ui/core';
 import Face from '../Face';
 import Message from '../Message';
 import MessageHistory from '../MessageHistory'
-import { abi, contractAddress } from '../../web3/puedoSalir';
+import { abi, contractAddress, deployBlock } from '../../web3/puedoSalir';
 
 const PuedoSalir = () => {
   const subspace = useSubspace();
@@ -22,9 +22,9 @@ const PuedoSalir = () => {
 
   useEffect(() => {
     if (!puedoSalirContract) return;
-    const observableM = puedoSalirContract.events.NewMessage.track({filter: {}, fromBlock: 7604005})
+    const observableM = puedoSalirContract.events.NewMessage.track({filter: {}, fromBlock: deployBlock})
                                                         .pipe(scan((accum, val) => [...accum, val], []));
-    const observableS = puedoSalirContract.events.NewStatus.track({filter: {}, fromBlock: 7604005})       
+    const observableS = puedoSalirContract.events.NewStatus.track({filter: {}, fromBlock: deployBlock})       
     setStatusObservable(observableS);
     setMessagesObservable(observableM);
   }, [subspace, puedoSalirContract]);
