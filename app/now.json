@@ -1,8 +1,6 @@
 {
     "version": 2,
     "env": {
-        "AF_API_KEY": "@af_api_key",
-        "AF_COMISSION": "@af_comission",
         "REACT_APP_SMART_CONTRACT_ADDRESS_LOCAL": "@react_app_smart_contract_address_local",
         "REACT_APP_SMART_CONTRACT_ADDRESS_ROPSTEN": "@react_app_smart_contract_address_ropsten",
         "REACT_APP_LOCAL_NETWORK": "@react_app_local_network",
