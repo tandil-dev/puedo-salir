@@ -1,7 +1,8 @@
+/* eslint-disable eqeqeq */
 import React from "react";
 
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Typography, Toolbar, Fab } from '@material-ui/core';
+import { AppBar, Typography, Fab } from '@material-ui/core';
 
 import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core'
 import {
@@ -29,16 +30,16 @@ const useStyles = makeStyles(theme => ({
 
 function getErrorMessage(error) {
   if (error instanceof NoEthereumProviderError) {
-    return 'No Ethereum browser extension detected, install MetaMask on desktop or visit from a dApp browser on mobile.'
+    return 'No se detecta Metamask.'
   } else if (error instanceof UnsupportedChainIdError) {
-    return "You're connected to an unsupported network."
+    return "Estás conectado a una red no compatible. Utilice Ropsten o Localhost con chain id 88"
   } else if (
     error instanceof UserRejectedRequestErrorInjected
   ) {
-    return 'Please authorize this website to access your Ethereum account.'
+    return 'Por favor autoize este sitio para acceder a este Metamsk.'
   } else {
     console.error(error)
-    return 'An unknown error occurred. Check the console for more details.'
+    return 'Un error inseperado sucedió. Revise la consola para más detalles.'
   }
 }
 
@@ -58,26 +59,21 @@ const StatusBar = (props) => {
   return (
     <>
       <AppBar position="fixed" color="primary" className={classes.appBar}>
-        <Toolbar>
-          {error && <Typography variant="h6">{getErrorMessage(error)}</Typography>}
-        </Toolbar>
+        {error && <Typography variant="h6" color="error" fontWeight="fontWeightBold">{getErrorMessage(error)}</Typography>}
+        <Typography variant="h6">
+          Chain id: {chainId}
+        </Typography>
+        <Typography variant="h6">
+          Account: {account && `${account.slice(0,6)}...${account.slice(-4)}`}
+        </Typography>
+        <MetamaskGateway>
+          { 
+            active 
+            ? <Fab variant="extended" color="secondary" aria-label="logout" className={classes.fab} onClick={handleLogout}>Logout</Fab>
+            : <Fab variant="extended" color="secondary" aria-label="login" className={classes.fab} onClick={handleLogin}>Login</Fab>
+        }
+        </MetamaskGateway>
       </AppBar>
-      <AppBar position="fixed" color="primary" className={classes.appBar}>
-          <Typography variant="h6">
-            Chain id: {chainId}
-          </Typography>
-          <Typography variant="h6">
-            Account: {account && `${account.slice(0,6)}...${account.slice(-4)}`}
-          </Typography>
-          <MetamaskGateway>
-            { 
-              active 
-              ? <Fab variant="extended" color="secondary" aria-label="logout" className={classes.fab} onClick={handleLogout}>Logout</Fab>
-              : <Fab variant="extended" color="secondary" aria-label="login" className={classes.fab} onClick={handleLogin}>Login</Fab>
-          }
-          </MetamaskGateway>
-      </AppBar>
-
     </>
   );
 }
