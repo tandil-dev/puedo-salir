@@ -23,8 +23,14 @@ const useStyles = makeStyles(theme => ({
   },
   fab: {
     position: 'absolute',
-    bottom: theme.spacing(1),
+    bottom: theme.spacing(3),
     right: theme.spacing(3),
+  },
+  typography1: {
+    padding: theme.spacing(1,0,1,1),
+  },
+  typography2: {
+    padding: theme.spacing(0,0,1,1),
   },
 }));
 
@@ -36,14 +42,14 @@ function getErrorMessage(error) {
   } else if (
     error instanceof UserRejectedRequestErrorInjected
   ) {
-    return 'Por favor autoize este sitio para acceder a este Metamsk.'
+    return 'Por favor autorice este sitio para acceder a este Metamsk.'
   } else {
     console.error(error)
     return 'Un error inseperado sucedió. Revise la consola para más detalles.'
   }
 }
 
-const StatusBar = (props) => {
+const StatusBar = () => {
   const web3Context = useWeb3React();
   const { chainId, account, error, active, activate, deactivate } = web3Context;
   const classes = useStyles();
@@ -59,18 +65,20 @@ const StatusBar = (props) => {
   return (
     <>
       <AppBar position="fixed" color="primary" className={classes.appBar}>
-        {error && <Typography variant="h6" color="error" fontWeight="fontWeightBold">{getErrorMessage(error)}</Typography>}
-        <Typography variant="h6">
+        {error && <Typography variant="h6" color="error" fontWeight="fontWeightBold" className={classes.typography}>
+          {getErrorMessage(error)}
+        </Typography>}
+        <Typography variant="h6" className={classes.typography1}>
           Chain id: {chainId}
         </Typography>
-        <Typography variant="h6">
+        <Typography variant="h6" className={classes.typography2}>
           Account: {account && `${account.slice(0,6)}...${account.slice(-4)}`}
         </Typography>
         <MetamaskGateway>
           { 
             active 
-            ? <Fab variant="extended" color="secondary" aria-label="logout" className={classes.fab} onClick={handleLogout}>Logout</Fab>
-            : <Fab variant="extended" color="secondary" aria-label="login" className={classes.fab} onClick={handleLogin}>Login</Fab>
+            ? <Fab variant="extended" aria-label="logout" className={classes.fab} onClick={handleLogout}>Logout</Fab>
+            : <Fab variant="extended" aria-label="login" className={classes.fab} onClick={handleLogin}>Login</Fab>
         }
         </MetamaskGateway>
       </AppBar>

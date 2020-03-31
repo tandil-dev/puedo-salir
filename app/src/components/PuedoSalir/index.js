@@ -4,7 +4,7 @@ import { useSubspace } from "@embarklabs/subspace-react";
 import { scan } from 'rxjs/operators';
 import { Grid } from '@material-ui/core';
 
-// import Form from './Form';
+import Form from './Form';
 import Face from '../Face';
 import Message from '../Message';
 import MessageHistory from '../MessageHistory'
@@ -29,6 +29,11 @@ const PuedoSalir = () => {
     setMessagesObservable(observableM);
   }, [subspace, puedoSalirContract]);
 
+  const onSendClick = ({message}) => {
+    if(!puedoSalirContract) return;
+    puedoSalirContract.methods.setMessage(message).send({from: subspace.web3.eth.defaultAccount});
+  }
+
   return (
     <Grid
     container
@@ -43,7 +48,9 @@ const PuedoSalir = () => {
     <Grid item>
       <Message status={statusObservable$.status} />
     </Grid>
-    
+    <Grid item>
+      <Form onSubmit={onSendClick} />
+    </Grid>
     <Grid item>
       <MessageHistory messages={messageObservable$}/>
     </Grid>

@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
     fab: {
       position: 'absolute',
-      bottom: theme.spacing(1),
+      bottom: theme.spacing(3),
       right: theme.spacing(3),
     },
   }));
@@ -24,7 +24,7 @@ const MetamaskDownload = () => {
 
   return (
     <>
-      <Fab variant="extended" color="secondary" aria-label="Download Metamask"  className={classes.fab} onClick={handleClickOpen}>Login</Fab>
+      <Fab variant="extended" aria-label="Download Metamask"  className={classes.fab} onClick={handleClickOpen}>Login</Fab>
       <Dialog
         open={open}
         onClose={handleClose}

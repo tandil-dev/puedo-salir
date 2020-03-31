@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useWeb3React } from '@web3-react/core'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,14 +18,14 @@ export default function Form({ onSubmit }) {
   const web3Context = useWeb3React();
   const { active } = web3Context;
 
-  const { register, handleSubmit, errors } = useForm();
+  const { control, handleSubmit, errors } = useForm();
   console.log(errors);
   
   return (
     <>
       <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
-        <TextField type="text" placeholder="#quedateencasa" name="message" ref={register} disabled={!active}/>
-        <input type="submit" value='Send' disabled={!active} />
+        <Controller as={TextField} name="message" control={control} placeholder="#quedateencasa" disabled={!active}/>
+        <Button type="submit" variant="contained" disabled={!active}>Send</Button>
       </form>
     </>
   );
