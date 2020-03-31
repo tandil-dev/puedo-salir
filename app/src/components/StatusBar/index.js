@@ -10,6 +10,8 @@ import {
 } from '@web3-react/injected-connector';
 import { injected } from '../../web3/connectors';
 
+import MetamaskGateway from '../MetamaskGateway';
+
 const useStyles = makeStyles(theme => ({
   text: {
     padding: theme.spacing(2, 2, 0),
@@ -20,8 +22,8 @@ const useStyles = makeStyles(theme => ({
   },
   fab: {
     position: 'absolute',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
+    bottom: theme.spacing(1),
+    right: theme.spacing(3),
   },
 }));
 
@@ -67,10 +69,13 @@ const StatusBar = (props) => {
           <Typography variant="h6">
             Account: {account && `${account.slice(0,6)}...${account.slice(-4)}`}
           </Typography>
-          { active 
-            ? <Fab variant="extended" color="secondary" aria-label="logout" className={classes.fab} onClick={handleLogout}>Logout</Fab>
-            : <Fab variant="extended" color="secondary" aria-label="login" className={classes.fab} onClick={handleLogin}>Login</Fab>
+          <MetamaskGateway>
+            { 
+              active 
+              ? <Fab variant="extended" color="secondary" aria-label="logout" className={classes.fab} onClick={handleLogout}>Logout</Fab>
+              : <Fab variant="extended" color="secondary" aria-label="login" className={classes.fab} onClick={handleLogin}>Login</Fab>
           }
+          </MetamaskGateway>
       </AppBar>
 
     </>
