@@ -2,11 +2,12 @@ import React from "react";
 import { observe } from "@embarklabs/subspace-react";
 import { Typography, Box, List, ListItem } from "@material-ui/core";
 import ReactPlayer from 'react-player';
+import { sizing } from '@material-ui/system';
 
 const MessageHistory = ({messages}) => {
   if (!messages) return null;
   return (
-    <List>
+    <List style={{marginBottom: '100px', maxHeight: '100%', overflow: 'auto'}}>
       {
         messages.map(({ message, blockNumber }) => (
           <ListItem key={message + blockNumber}>
