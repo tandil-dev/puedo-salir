@@ -13,7 +13,7 @@ const MessageHistory = ({messages}) => {
           <ListItem key={message + blockNumber}>
             <Typography>
               { 
-                ReactPlayer.canPlay(message) && <ReactPlayer url={message} loop/>
+                ReactPlayer.canPlay(message) && <ReactPlayer url={message} loop controls/>
               }
               <Box fontWeight="fontWeightBold">{message}</Box>
               <Box display="inline"> at block </Box>
