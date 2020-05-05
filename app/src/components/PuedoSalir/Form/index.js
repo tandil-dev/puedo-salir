@@ -18,8 +18,7 @@ export default function Form({ onSubmit }) {
   const web3Context = useWeb3React();
   const { active } = web3Context;
 
-  const { control, handleSubmit, errors } = useForm();
-  console.log(errors);
+  const { control, handleSubmit } = useForm();
   
   return (
     <>
